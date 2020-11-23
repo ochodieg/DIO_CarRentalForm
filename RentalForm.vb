@@ -6,7 +6,7 @@ Option Explicit On
 Option Strict On
 Option Compare Binary
 Public Class RentalForm
-    Dim valueCheck As Boolean
+    Dim valueCheck As Boolean ' Not needed use Validate() it should return True/False. This scope could be in Validate()
     Dim totalMiles As Integer
     Dim totalCustomers As Integer
     Dim totalCharge As Decimal
@@ -14,52 +14,52 @@ Public Class RentalForm
         Dim zipValue, beginOdometer, endOdometer, checkDay As Integer
 
         If NameTextBox.Text = String.Empty Then
-            ActiveControl = NameTextBox
-            MsgBox("All Values must be entered before Proceeding.")
-            Exit Function
+            ActiveControl = NameTextBox ' not needed if evaluated in reverse order - TJR
+            MsgBox("All Values must be entered before Proceeding.") ' Not specific. Accumulate all problems and display in one message box - TJR
+            Exit Function ' Use return False - TJR 
 
         ElseIf ZipCodeTextBox.Text = String.Empty Then
             ActiveControl = ZipCodeTextBox
             MsgBox("All Values must be entered before Proceeding.")
-            Exit Function
+            Exit Function ' Use return False - TJR
 
         ElseIf CityTextBox.Text = String.Empty Then
             ActiveControl = CityTextBox
             MsgBox("All Values must be entered before Proceeding.")
-            Exit Function
+            Exit Function ' Use return False - TJR
 
         ElseIf AddressTextBox.Text = String.Empty Then
             ActiveControl = AddressTextBox
             MsgBox("All Values must be entered before Proceeding.")
-            Exit Function
+            Exit Function ' Use return False - TJR
 
         ElseIf StateTextBox.Text = String.Empty Then
             ActiveControl = StateTextBox
             MsgBox("All Values must be entered before Proceeding.")
-            Exit Function
+            Exit Function ' Use return False - TJR
 
         ElseIf BeginOdometerTextBox.Text = String.Empty Then
             ActiveControl = BeginOdometerTextBox
             MsgBox("All Values must be entered before Proceeding.")
-            Exit Function
+            Exit Function ' Use return False - TJR
 
         ElseIf EndOdometerTextBox.Text = String.Empty Then
             ActiveControl = EndOdometerTextBox
             MsgBox("All Values must be entered before Proceeding.")
-            Exit Function
+            Exit Function ' Use return False - TJR
 
         ElseIf DaysTextBox.Text = String.Empty Then
             ActiveControl = DaysTextBox
             MsgBox("All Values must be entered before Proceeding.")
-            Exit Function
+            Exit Function ' Use return False - TJR
         End If
 
         Try
-            zipValue = CInt(ZipCodeTextBox.Text)
+            zipValue = CInt(ZipCodeTextBox.Text) ' Is this needed? - TJR
         Catch
             ActiveControl = ZipCodeTextBox
             MsgBox("Zipcode value must be a whole number")
-            Exit Function
+            Exit Function ' Use return False - TJR
         End Try
 
         Try
@@ -68,7 +68,7 @@ Public Class RentalForm
             ActiveControl = BeginOdometerTextBox
             BeginOdometerTextBox.Text = String.Empty
             MsgBox("Whole number must be used for Odometer reading")
-            Exit Function
+            Exit Function ' Use return False - TJR
         End Try
 
         Try
@@ -77,7 +77,7 @@ Public Class RentalForm
             ActiveControl = EndOdometerTextBox
             EndOdometerTextBox.Text = String.Empty
             MsgBox("Whole number must be used for Odometer reading")
-            Exit Function
+            Exit Function ' Use return False - TJR
         End Try
 
         Try
@@ -86,7 +86,7 @@ Public Class RentalForm
             ActiveControl = DaysTextBox
             DaysTextBox.Text = String.Empty
             MsgBox("Number of days must be a whole number")
-            Exit Function
+            Exit Function ' Use return False - TJR
         End Try
 
         If beginOdometer > endOdometer Then
@@ -94,17 +94,17 @@ Public Class RentalForm
             BeginOdometerTextBox.Text = String.Empty
             EndOdometerTextBox.Text = String.Empty
             MsgBox("Beginning Odometer Reading can't be higher than end odometer reading")
-            Exit Function
+            Exit Function ' Use return False - TJR
         End If
 
         If checkDay > 45 Or checkDay <= 0 Then
             ActiveControl = DaysTextBox
             DaysTextBox.Text = String.Empty
             MsgBox("Renting limit is 45 days")
-            Exit Function
+            Exit Function ' Use return False - TJR
         End If
-        valueCheck = True
-        Return valueCheck
+        valueCheck = True ' Not needed - TJR
+        Return valueCheck ' Use Return True - TJR
     End Function
     Private Sub CalculateButton_Click(sender As Object, e As EventArgs) Handles CalculateButton.Click, CalculateToolStripMenuItem.Click, ContextMenuCalculate.Click
         valueCheck = False
